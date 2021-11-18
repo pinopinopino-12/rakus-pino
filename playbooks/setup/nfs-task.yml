@@ -1,0 +1,10 @@
+- name: nfs-backup-task-server-setup
+  vars_files:
+    - "../../vars/{{ target_phase }}-vars.yml"
+  hosts: nsf-backup-task
+  become: yes
+  roles:
+    - role: mount
+      tags: mount
+      roles: nfs-backup-config
+      tags: nfs-backup-config
