@@ -1,0 +1,18 @@
+---
+# nfs-utilsインストール
+- name: "nfs-utils install"
+  yum:
+   name: nfs-utils
+   state: present
+when: MOUNT_FSTYPE == "nfs"
+
+# ファイルタイプ　チェック
+- name: "Check if {{ mount_src }} is a block device"
+ shell: test -b {{ mount_src }}
+ when: MOUNT_FSTYPE == "xfs"
+
+# マウント先ディレクトリ作成
+- name: directory exits
+  file:
+   path: "{{ mount_point }}"
+   state: directory
